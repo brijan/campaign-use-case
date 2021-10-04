@@ -3,7 +3,7 @@ from data_schema import  get_schema
 from configure_spark import configure_spark
 from common_utils import read_data_with_file_name_csv
 import os, sys
-
+from data_transformations import get_quater_of_hour
 
 
 import json
@@ -26,7 +26,22 @@ def main():
         spark,
         get_schema(clicks),
         header=True
-    )
+    ).transform(get_quater_of_hour)
+
+    conversions_df=read_data_with_file_name_csv(
+        config['application_config']['input_path']+conversions+'*.csv',
+        spark,
+        get_schema(conversions),
+        header=True
+    ).transform(get_quater_of_hour)
+
+    impressions_df=read_data_with_file_name_csv(
+        config['application_config']['input_path']+impressions+'*.csv',
+        spark,
+        get_schema(impressions),
+        header=True
+    ).transform(get_quater_of_hour)
+
          
     spark.sparkContext.stop()
 
