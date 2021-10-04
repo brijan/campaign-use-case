@@ -1,0 +1,10 @@
+{
+  "application_config": {
+    "master_url": "local[*]",
+    "input_path":"../../../campaign-data/*/",
+    "output_path":"./"
+  },
+  "spark_config": {
+      }
+  
+}
